@@ -306,6 +306,22 @@ fun AlignYourBodyElementPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
+fun AlignYourBodyRowPreview() {
+    MySootheTheme { AlignYourBodyRow() }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Composable
+fun AlignYourBodySection() {
+    MySootheTheme {
+        HomeSection(R.string.align_your_body) {
+            AlignYourBodyRow()
+        }
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Composable
 fun FavoriteCollectionCardPreview() {
     MySootheTheme {
         FavoriteCollectionCard(
@@ -324,19 +340,15 @@ fun FavoriteCollectionsGridPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
-fun AlignYourBodyRowPreview() {
-    MySootheTheme { AlignYourBodyRow() }
+fun FavoriteCollectionsSection() {
+    MySootheTheme {
+        HomeSection(R.string.fc2_nature_meditations) {
+            FavoriteCollectionsGrid()
+        }
+    }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
-@Composable
-fun HomeSectionPreview() {
-    MySootheTheme { HomeSection(R.string.align_your_body) {
-        AlignYourBodyRow()
-    } }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2, heightDp = 180)
 @Composable
 fun ScreenContentPreview() {
     MySootheTheme { HomeScreen() }
