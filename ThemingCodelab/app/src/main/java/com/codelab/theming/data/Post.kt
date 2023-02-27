@@ -50,7 +50,7 @@ data class PostAuthor(
  */
 object PostRepo {
     fun getPosts(): List<Post> = posts
-    fun getFeaturedPost(): Post = posts.random()
+    fun getFeaturedPost(): Post = posts.get(0)
 }
 
 /**

@@ -212,6 +212,12 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             FavoriteCollectionsGrid()
         }
         Spacer(Modifier.height(16.dp))
+        HomeSection(title = R.string.align_your_body) {
+            AlignYourBodyRow()
+        }
+        HomeSection(title = R.string.favorite_collections) {
+            FavoriteCollectionsGrid()
+        }
     }
 }
 
