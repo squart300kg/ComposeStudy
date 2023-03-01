@@ -23,7 +23,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.codelabs.state.ui.theme.BasicStateCodelabTheme
-import com.codelabs.state.ui.theme.WellnessScreen
+import com.codelabs.state.ui.WellnessScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
