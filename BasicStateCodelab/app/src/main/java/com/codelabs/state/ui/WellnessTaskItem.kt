@@ -11,29 +11,17 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-data class WellnessTask(val id: Int, val label: String)
-
-@Composable
-fun StatefulWellnessTaskItem(
-    taskName: String,
-    modifier: Modifier = Modifier,
-    onClose: () -> Unit
+class WellnessTask(
+    val id: Int,
+    val label: String,
+    initialChecked: Boolean = false
 ) {
-    var checkedState by rememberSaveable { mutableStateOf(false) }
-
-    StatelessWellnessTaskItem(
-        taskName = taskName,
-        checked = checkedState,
-        onCheckedChange = { newValue -> checkedState = newValue },
-        onClose = onClose,
-        modifier = modifier)
+    var checked by mutableStateOf(initialChecked)
 }
-
 
 @Composable
 fun StatelessWellnessTaskItem(
@@ -62,19 +50,23 @@ fun StatelessWellnessTaskItem(
     }
 }
 
+
 @Composable
 fun WellnessTasksList(
     modifier: Modifier = Modifier,
+    onCheckedTask: (WellnessTask, Boolean) -> Unit,
     onCloseTask: (WellnessTask) -> Unit,
-    list: List<WellnessTask> = remember { wellnessTasks }
+    list: List<WellnessTask>
 ) {
     LazyColumn(modifier = modifier) {
         items(
             items = list,
             key = { task -> task.id }
         ) { task ->
-            StatefulWellnessTaskItem(
+            StatelessWellnessTaskItem(
                 taskName = task.label,
+                checked = task.checked,
+                onCheckedChange = { checked -> onCheckedTask(task, checked) },
                 onClose = { onCloseTask(task) })
         }
     }

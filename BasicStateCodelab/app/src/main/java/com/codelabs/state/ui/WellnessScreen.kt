@@ -8,20 +8,28 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun WellnessScreen(modifier: Modifier = Modifier) {
+fun WellnessScreen(
+    modifier: Modifier = Modifier,
+    wellnessViewModel: WellnessViewModel = viewModel()
+) {
     Column(modifier = modifier) {
         StatefulCounter()
 
-        val list = remember { wellnessTasks.toMutableStateList() }
         WellnessTasksList(
-            list = list,
-            onCloseTask = { task -> list.remove(task) })
+            list = wellnessViewModel.tasks,
+            onCheckedTask = { task, checked ->
+                wellnessViewModel.changeTaskChecked(
+                    item = task,
+                    checked = checked
+                )
+            },
+            onCloseTask = { task -> wellnessViewModel.remove(task) })
     }
 }
 
-val wellnessTasks = List(30) { i -> WellnessTask(i, "Task # $i")}
 
 @Composable
 fun StatefulCounter(modifier: Modifier = Modifier) {
