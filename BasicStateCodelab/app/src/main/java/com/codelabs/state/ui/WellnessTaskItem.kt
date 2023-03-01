@@ -17,23 +17,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 data class WellnessTask(val id: Int, val label: String)
-val wellnessTasks = List(30) { i -> WellnessTask(i, "Task # $i")}
 
 @Composable
-fun WellnessTaskItem(taskName: String, modifier: Modifier = Modifier) {
+fun StatefulWellnessTaskItem(
+    taskName: String,
+    modifier: Modifier = Modifier,
+    onClose: () -> Unit
+) {
     var checkedState by rememberSaveable { mutableStateOf(false) }
 
-    WellnessTaskItem(
+    StatelessWellnessTaskItem(
         taskName = taskName,
         checked = checkedState,
         onCheckedChange = { newValue -> checkedState = newValue },
-        onClose = {},
+        onClose = onClose,
         modifier = modifier)
 }
 
 
 @Composable
-fun WellnessTaskItem(
+fun StatelessWellnessTaskItem(
     taskName: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
@@ -62,11 +65,17 @@ fun WellnessTaskItem(
 @Composable
 fun WellnessTasksList(
     modifier: Modifier = Modifier,
+    onCloseTask: (WellnessTask) -> Unit,
     list: List<WellnessTask> = remember { wellnessTasks }
 ) {
     LazyColumn(modifier = modifier) {
-        items(list) { task ->
-            WellnessTaskItem(taskName = task.label)
+        items(
+            items = list,
+            key = { task -> task.id }
+        ) { task ->
+            StatefulWellnessTaskItem(
+                taskName = task.label,
+                onClose = { onCloseTask(task) })
         }
     }
 }
