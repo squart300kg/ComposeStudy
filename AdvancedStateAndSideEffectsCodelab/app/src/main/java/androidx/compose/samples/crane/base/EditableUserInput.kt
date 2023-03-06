@@ -38,6 +38,7 @@ fun CraneEditableUserInput(
 ) {
     // TODO Codelab: Encapsulate this state in a state holder
 
+
     CraneBaseUserInput(
         caption = caption,
         tintIcon = { !state.isHint },
